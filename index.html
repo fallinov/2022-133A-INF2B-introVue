@@ -5,6 +5,8 @@
     <title>Intro à Vue.js 2</title>
 </head>
 <body>
+<p>{{ nbreProduits }}</p>
+
 <div id="app">
     <p>Nombre de produits : {{ nbreProduits }}</p>
     <p>Total de produits en stock : {{ nbreProduitsEnStock }}</p>
@@ -14,6 +16,9 @@
             <strong v-if="prod.stock < 50">
                 Stock faible !!!
             </strong>
+            <button @click="prod.stock += 1">+</button>
+            <input type="number" v-model.number="prod.stock">
+            <button @click="prod.stock -= 1">-</button>
         </li>
     </ul>
 </div>
