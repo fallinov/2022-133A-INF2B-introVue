@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro à Vue.js 2</title>
+</head>
+<body>
+<div id="app">
+    <p>Nombre de produits : {{ nbreProduits }}</p>
+    <p>Total de produits en stock : {{ nbreProduitsEnStock }}</p>
+    <ul>
+        <li v-for="prod in products">
+            {{ prod.title }} ({{ prod.stock }})
+            <strong v-if="prod.stock < 50">
+                Stock faible !!!
+            </strong>
+        </li>
+    </ul>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            products: ['Chapeau', 'Slip', 'T-shirt']
+        },
+        computed: {
+            nbreProduitsEnStock () {
+                return this.products.reduce((total, prod) => total + prod.stock, 0);
+            },
+            nbreProduits () {
+                return this.products.length
+            }
+        },
+        created () {
+            fetch('https://dummyjson.com/products')
+                .then(res => res.json())
+                .then(data => {
+                    this.products = data.products
+                });
+        }
+    })
+</script>
+</body>
+</html>
